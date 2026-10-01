@@ -15,7 +15,7 @@ public class VeiculoRequestDTO {
     private String placa;
     @NotBlank 
     private String modelo;
-    @NotBlank 
+    @NotBlank
     private int anoFabricacao;
     @NotBlank 
     private String tipo;

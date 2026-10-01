@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.corporativos.prova.servico_veiculos.dto.VeiculoRequestDTO;
 import com.corporativos.prova.servico_veiculos.dto.VeiculoResponseDTO;
+import com.corporativos.prova.servico_veiculos.execption.VeiculoNaoEncontradoException;
 import com.corporativos.prova.servico_veiculos.model.Veiculo;
 import com.corporativos.prova.servico_veiculos.repository.VeiculoRepository;
 
@@ -27,7 +28,7 @@ public class VeiculoService {
 
     public VeiculoResponseDTO buscarPorId(Long id){
         Veiculo veiculo = veiculoRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "veiculo não encontrado"));
+        .orElseThrow(() -> new VeiculoNaoEncontradoException(id));
         return toResponseDTO(veiculo);
     }
 
@@ -38,7 +39,7 @@ public class VeiculoService {
 
     public VeiculoResponseDTO atualizar(Long id, VeiculoRequestDTO dto){
         Veiculo veiculo = veiculoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "veiculo não encontrado"));
+                .orElseThrow(() -> new VeiculoNaoEncontradoException(id));
 
         veiculo.setPlaca(dto.getPlaca());
         veiculo.setModelo(dto.getModelo());
@@ -52,7 +53,7 @@ public class VeiculoService {
     
     public void deletar(Long id){
         veiculoRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "veiculo não encontrado"));
+        .orElseThrow(() -> new VeiculoNaoEncontradoException(id));
         veiculoRepository.deleteById(id);
     }
 

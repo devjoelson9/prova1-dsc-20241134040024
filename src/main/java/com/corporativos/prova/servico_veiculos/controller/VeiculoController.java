@@ -38,7 +38,7 @@ public class VeiculoController {
     }
 
     @PostMapping
-    public ResponseEntity<VeiculoResponseDTO> salvar(@Valid @RequestBody VeiculoRequestDTO dto){
+    public ResponseEntity<VeiculoResponseDTO> salvar( @RequestBody VeiculoRequestDTO dto){
         var veiculo = veiculoService.criar(dto);
         var uri = URI.create("/veiculos/" + veiculo.getId());
         return ResponseEntity.created(uri).body(veiculo);
